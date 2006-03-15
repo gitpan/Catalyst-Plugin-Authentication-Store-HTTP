@@ -2,7 +2,7 @@ package Catalyst::Plugin::Authentication::Store::HTTP;
 use strict;
 use warnings;
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 use Catalyst::Exception;
 use Catalyst::Plugin::Authentication::Store::HTTP::Backend;
@@ -20,7 +20,7 @@ Catalyst::Plugin::Authentication::Store::HTTP - Remote HTTP authentication stora
         Session::Store::FastMmap
     
         Authentication
-        Authentication::Store::HTTP      # it need be loaded before Credential plugin
+        Authentication::Store::HTTP
         Authentication::Credential::Password
         # or Authentication::Credential::HTTP
         /;
@@ -47,11 +47,6 @@ This module is Catalyst authentication storage plugin that use Basic authenticat
 
 This is re-implementation of L<Catalyst::Plugin::Authentication::Basic::Remote>.
 
-=head1 NOTE
-
-This plugin override $c->login function that generally implemented in Credential plugins,
-so you must load this plugin before cred one.
-
 =head1 EXTENDED METHODS
 
 =head2 setup
@@ -74,18 +69,6 @@ sub setup {
     );
 
     $c->NEXT::setup(@_);
-}
-
-=head2 login
-
-=cut
-
-# quick and dirty hack for Authentication plugin
-sub login {
-    my ( $c, $user, $password ) = @_;
-
-    $c->default_auth_store->{users}->{$user} = $password;
-    $c->NEXT::login($user, $password);
 }
 
 =head1 SEE ALSO

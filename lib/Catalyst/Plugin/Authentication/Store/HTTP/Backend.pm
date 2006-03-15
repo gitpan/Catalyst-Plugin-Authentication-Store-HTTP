@@ -2,8 +2,7 @@ package Catalyst::Plugin::Authentication::Store::HTTP::Backend;
 use strict;
 use warnings;
 
-use Catalyst::Plugin::Authentication::User::Hash;
-use LWP::UserAgent;
+use Catalyst::Plugin::Authentication::Store::HTTP::User;
 
 =head1 NAME
 
@@ -36,18 +35,12 @@ sub new {
 sub get_user {
     my ( $self, $id ) = @_;
 
-    return unless defined $self->{users}->{$id};
+    my $user = {
+        id       => $id,
+        auth_url => $self->{auth_url},
+    };
 
-    my $password = $self->{users}->{$id};
-    $self->{ua} ||= LWP::UserAgent->new;
-
-    my $request = HTTP::Request->new( HEAD => $self->{auth_url} );
-    $request->headers->authorization_basic( $id, $password );
-
-    my $response = $self->{ua}->request( $request );
-
-    return unless $response->is_success;
-    return bless { id => $id }, 'Catalyst::Plugin::Authentication::User::Hash';
+    return bless $user, 'Catalyst::Plugin::Authentication::Store::HTTP::User';
 }
 
 =head1 AUTHOR

@@ -10,7 +10,7 @@ SYNOPSIS
             Session::Store::FastMmap
         
         Authentication
-            Authentication::Store::HTTP      # it need be loaded before Credential plugin
+            Authentication::Store::HTTP
             Authentication::Credential::Password
             # or Authentication::Credential::HTTP
             /;
@@ -38,13 +38,8 @@ DESCRIPTION
     This is re-implementation of
     Catalyst::Plugin::Authentication::Basic::Remote.
 
-NOTE
-    This plugin override $c->login function that generally implemented in
-    Credential plugins, so you must load this plugin before cred one.
-
 EXTENDED METHODS
   setup
-  login
 SEE ALSO
     Catalyst::Plugin::Authentication.
 

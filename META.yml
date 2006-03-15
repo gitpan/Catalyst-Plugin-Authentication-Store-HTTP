@@ -1,6 +1,6 @@
 ---
 name: Catalyst-Plugin-Authentication-Store-HTTP
-version: 0.02
+version: 0.03
 author:
   - 'Daisuke Murase <typester@cpan.org>'
 abstract: Remote HTTP authentication storage
@@ -12,7 +12,7 @@ requires:
 provides:
   Catalyst::Plugin::Authentication::Store::HTTP:
     file: lib/Catalyst/Plugin/Authentication/Store/HTTP.pm
-    version: 0.02
+    version: 0.03
   Catalyst::Plugin::Authentication::Store::HTTP::Backend:
     file: lib/Catalyst/Plugin/Authentication/Store/HTTP/Backend.pm
 generated_by: Module::Build version 0.2612
