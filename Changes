@@ -1,5 +1,8 @@
 Revision history for Perl module Catalyst::Plugin::Authentication::Store::HTTP
 
+0.04 2006-03-15T22:03:47+09:00
+     - forget update manifest file
+
 0.03 2006-03-15T21:55:12+09:00
      - added user class
 
