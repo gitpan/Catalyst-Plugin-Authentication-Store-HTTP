@@ -7,7 +7,7 @@ use LWP::UserAgent;
 
 =head1 NAME
 
-Catalyst::Plugin::Authentication::Atore::HTTP::Backend - HTTP authentication storage backend
+Catalyst::Plugin::Authentication::Store::HTTP::Backend - HTTP authentication storage backend
 
 =head1 SYNOPSIS
 

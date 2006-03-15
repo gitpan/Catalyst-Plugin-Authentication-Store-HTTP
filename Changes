@@ -1,4 +1,8 @@
 Revision history for Perl module Catalyst::Plugin::Authentication::Store::HTTP
 
+0.02 2006-03-15T17:42:53+09:00
+     - fixed a doc typo
+     - removed some no used codes
+
 0.01 2006-03-15T15:29:38+09:00
      - original version;

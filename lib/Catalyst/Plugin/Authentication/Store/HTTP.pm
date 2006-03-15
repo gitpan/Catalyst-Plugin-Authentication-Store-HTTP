@@ -2,7 +2,7 @@ package Catalyst::Plugin::Authentication::Store::HTTP;
 use strict;
 use warnings;
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 use Catalyst::Exception;
 use Catalyst::Plugin::Authentication::Store::HTTP::Backend;
@@ -65,10 +65,7 @@ sub setup {
         Catalyst::Exception->throw(
             message => qq/Require auth_url for Authentication::Store::HTTP/
         );
-        return;
     }
-
-    $c->config->{authentication}{http}{app_class} = ref $c || $c;
 
     $c->default_auth_store(
         Catalyst::Plugin::Authentication::Store::HTTP::Backend->new(
