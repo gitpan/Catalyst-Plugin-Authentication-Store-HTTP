@@ -23,7 +23,7 @@ HTTP authentication storage backend
 =cut
 
 sub new {
-    my ( $class, $config ) = @_;
+    my ($class, $config) = @_;
 
     bless {%$config}, $class;
 }
@@ -33,11 +33,14 @@ sub new {
 =cut
 
 sub get_user {
-    my ( $self, $id ) = @_;
+    my ($self, $id) = @_;
 
     my $user = {
-        id       => $id,
-        auth_url => $self->{auth_url},
+        id         => $id,
+        auth_url   => $self->{auth_url},
+        domain     => $self->{domain},
+        keep_alive => $self->{keep_alive} || 0,
+        ntlm       => $self->{ntlm} || 0,
     };
 
     return bless $user, 'Catalyst::Plugin::Authentication::Store::HTTP::User';

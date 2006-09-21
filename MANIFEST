@@ -3,6 +3,7 @@ Changes
 lib/Catalyst/Plugin/Authentication/Store/HTTP.pm
 lib/Catalyst/Plugin/Authentication/Store/HTTP/Backend.pm
 lib/Catalyst/Plugin/Authentication/Store/HTTP/User.pm
+lib/Catalyst/Plugin/Authentication/Store/HTTP/UserAgent.pm
 LICENSE
 Makefile.PL
 MANIFEST

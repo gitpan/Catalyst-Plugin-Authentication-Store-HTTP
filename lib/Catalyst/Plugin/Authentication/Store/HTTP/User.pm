@@ -3,7 +3,7 @@ use strict;
 use warnings;
 use base qw/Catalyst::Plugin::Authentication::User Class::Accessor::Fast/;
 
-use LWP::UserAgent;
+use Catalyst::Plugin::Authentication::Store::HTTP::UserAgent;
 
 __PACKAGE__->mk_accessors(qw/id store/);
 
@@ -30,7 +30,7 @@ HTTP authentication storage user class
 sub supported_features {
     return {
         password => { self_check => 1, },
-        session => 1,
+        session  => 1,
     };
 }
 
@@ -39,13 +39,21 @@ sub supported_features {
 =cut
 
 sub check_password {
-    my ( $self, $password ) = @_;
+    my ($self, $password) = @_;
 
-    my $ua  = LWP::UserAgent->new;
-    my $req = HTTP::Request->new( HEAD => $self->{auth_url} );
-    $req->headers->authorization_basic( $self->id, $password );
+    my $ua =
+      Catalyst::Plugin::Authentication::Store::HTTP::UserAgent->new(
+        keep_alive => ($self->{keep_alive} ? 1 : 0));
+    my $req = HTTP::Request->new(HEAD => $self->{auth_url});
 
-    my $res = $ua->request( $req );
+    # set the credentials for the request.
+    # if there is a domain set then prepend this onto the user id
+    $ua->credentials(
+        ($self->{domain} ? join("\\", $self->{domain}, $self->id) : $self->id),
+        $password
+    );
+
+    my $res = $ua->request($req);
 
     $res->is_success;
 }
@@ -55,7 +63,7 @@ sub check_password {
 =cut
 
 sub for_session {
-    shift
+    shift;
 }
 
 =head2 from_session
@@ -63,7 +71,7 @@ sub for_session {
 =cut
 
 sub from_session {
-    my ( $self, $c, $user ) = @_;
+    my ($self, $c, $user) = @_;
 
     $user;
 }
@@ -72,13 +80,15 @@ sub from_session {
 
 Daisuke Murase <typester@cpan.org>
 
+Nigel Metheringham <nigelm@cpan.org>
+
 =head1 COPYRIGHT
 
-This program is free software; you can redistribute
-it and/or modify it under the same terms as Perl itself.
+This program is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself.
 
-The full text of the license can be found in the
-LICENSE file included with this module.
+The full text of the license can be found in the LICENSE file included
+with this module.
 
 =cut
 
